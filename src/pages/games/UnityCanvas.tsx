@@ -41,7 +41,7 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
     updateConfig().catch(console.error)
 
     return () => {
-      handleClickBack
+      handleClickBack()
     }
   }, [src, isConfigured, router])
 
