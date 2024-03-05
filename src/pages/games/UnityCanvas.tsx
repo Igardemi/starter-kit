@@ -12,10 +12,10 @@ interface UnityCanvasProps {
 
 const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
   const [config, setConfig] = useState({
-    loaderUrl: '',
-    dataUrl: '',
-    frameworkUrl: '',
-    codeUrl: ''
+    loaderUrl: `${src}.loader.js`,
+    dataUrl: `${src}.data`,
+    frameworkUrl: `${src}.framework.js`,
+    codeUrl: `${src}.wasm`
   })
   const [isConfigured, setIsConfigured] = useState(false)
   const { unityProvider, loadingProgression, isLoaded, unload, requestFullscreen } = useUnityContext(config)
@@ -43,7 +43,7 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
     return () => {
       handleClickBack()
     }
-  }, [src])
+  }, [])
 
   useEffect(() => {
     const handleMensaje = (event: MessageEvent) => {
