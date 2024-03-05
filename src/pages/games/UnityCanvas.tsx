@@ -43,7 +43,7 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
     return () => {
       handleClickBack()
     }
-  }, [src, isConfigured, router])
+  }, [src])
 
   useEffect(() => {
     const handleMensaje = (event: MessageEvent) => {
@@ -58,7 +58,7 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
     return () => {
       window.removeEventListener('message', handleMensaje)
     }
-  }, [router])
+  }, [])
 
   async function handleClickBack() {
     try {
