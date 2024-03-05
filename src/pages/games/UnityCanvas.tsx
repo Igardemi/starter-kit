@@ -34,6 +34,7 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
         '(\\#[-a-z\\d_]*)?$',
       'i'
     )
+
     return !!pattern.test(src)
   }
 
