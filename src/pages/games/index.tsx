@@ -1,6 +1,5 @@
 // /src/App.js
 import React, { useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import MyNavbar from './NavBar'
 import UnityCanvas from './UnityCanvas'
 import Box from '@mui/material/Box'

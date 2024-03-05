@@ -29,7 +29,7 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
         setIsConfigured(false)
         router.replace('/')
       }
-      if (!isConfigured && src !== '' && isValidSrc(src)) {
+      if (!isConfigured && src !== '') {
         setConfig({
           loaderUrl: `${src}.loader.js`,
           dataUrl: `${src}.data`,
@@ -56,20 +56,6 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
       window.removeEventListener('message', handleMensaje)
     }
   }, [router])
-
-  const isValidSrc = (src: string): boolean => {
-    const pattern = new RegExp(
-      '^(https?:\\/\\/)?' +
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
-        '((\\d{1,3}\\.){3}\\d{1,3}))' +
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
-        '(\\?[;&a-z\\d%_.~+=-]*)?' +
-        '(\\#[-a-z\\d_]*)?$',
-      'i'
-    )
-
-    return !!pattern.test(src)
-  }
 
   async function handleClickBack() {
     try {

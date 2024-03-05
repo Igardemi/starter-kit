@@ -35,7 +35,7 @@ function App() {
   if (isLoading) {
     return (
       <Box sx={{ backgroundColor: 'black' }}>
-        <Typography sx={{}}>Loading...</Typography>
+        <Typography>Loading...</Typography>
       </Box>
     )
   }

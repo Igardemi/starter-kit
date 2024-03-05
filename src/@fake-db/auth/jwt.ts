@@ -53,11 +53,13 @@ mock.onPost('/jwt/login').reply(request => {
     console.log(process.env.NEXT_PUBLIC_JWT_SECRET)
     console.log(process.env.NEXT_PUBLIC_JWT_EXPIRATION)
     console.log(process.env.NEXT_PUBLIC_JWT_REFRESH_TOKEN_SECRET)
+
     // const accessToken = jwt.sign(
     //   { user: user },
     //   jwtConfig.secret,
     //   { expiresIn: jwtConfig.expirationTime || '1h' } // Proporciona un valor por defecto si es necesario
     // )
+
     const accessToken = ''
     console.log(accessToken)
 
