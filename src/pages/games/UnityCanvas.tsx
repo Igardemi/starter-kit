@@ -68,7 +68,13 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
   async function handleClickBack() {
     try {
       console.log('>> Vamos a desmontar Unity')
-      await unload()
+      setConfig({
+        loaderUrl: ``,
+        dataUrl: ``,
+        frameworkUrl: ``,
+        codeUrl: ``
+      })
+      unityProvider.setUnityInstance(null)
       console.log('>> Unity desmontado')
       setIsConfigured(false)
     } catch (error) {
