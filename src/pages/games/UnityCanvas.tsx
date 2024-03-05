@@ -65,21 +65,6 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
     }
   }, [src])
 
-  useEffect(() => {
-    const handleMensaje = (event: MessageEvent) => {
-      console.log('Mensaje recibido:', event.data)
-      if (event.data && event.data.action === 'BackToMainFrame') {
-        handleClickBack().then(() => router.push('/'))
-      }
-    }
-
-    window.addEventListener('message', handleMensaje)
-
-    return () => {
-      window.removeEventListener('message', handleMensaje)
-    }
-  }, [])
-
   async function handleClickBack() {
     try {
       console.log('>> Vamos a desmontar Unity')
