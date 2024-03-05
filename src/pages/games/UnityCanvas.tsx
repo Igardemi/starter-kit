@@ -12,10 +12,10 @@ interface UnityCanvasProps {
 
 const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
   const [config, setConfig] = useState({
-    loaderUrl: `${src}.loader.js`,
-    dataUrl: `${src}.data`,
-    frameworkUrl: `${src}.framework.js`,
-    codeUrl: `${src}.wasm`
+    loaderUrl: ``,
+    dataUrl: ``,
+    frameworkUrl: ``,
+    codeUrl: ``
   })
   const [isConfigured, setIsConfigured] = useState(false)
   const { unityProvider, loadingProgression, isLoaded, unload, requestFullscreen } = useUnityContext(config)
@@ -27,7 +27,6 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
         console.log('>> Existe un unity montado')
         await handleClickBack()
         setIsConfigured(false)
-        router.replace('/')
       }
       if (!isConfigured && src !== '') {
         setConfig({
