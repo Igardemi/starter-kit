@@ -1,20 +1,46 @@
 // /src/App.js
-import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import React, { useState, useEffect } from 'react'
 import RoomComponent from './roomComponent'
-import Box from '@mui/material/Box'
+import { Box, Typography } from '@mui/material'
 
 function App() {
-  const token = 'UUVJwMVQ9yZstQ5sj3gMC0UnjAAGhRhcAwu/Cy6OV7U='
-  const url = 'wss://futuraspaceserver4.link/WebLivekitTest/'
+  const [identity, setIdentity] = useState('')
+  const [token, setToken] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
+  const room = 'demo'
 
-  return (
-    <div className='App' style={{ height: '100vh', width: '100%' }}>
-      <Box sx={{ height: '100%', width: '100%' }}>
-        <RoomComponent url={url} token={token} />
+  useEffect(() => {
+    // Generar identity al montar el componente
+    const newIdentity = `user_${Math.floor(Math.random() * 10000)}`
+    setIdentity(newIdentity)
+  }, [])
+
+  useEffect(() => {
+    if (identity) {
+      setIsLoading(true) // Activar el estado de carga antes de la solicitud
+      fetch(`https://futuraspaceserver4.link:3006/get-token?room=${room.toString()}&identity=${identity.toString()}`)
+        .then(response => response.json())
+        .then(data => {
+          console.log('>> Token recibido:' + data.dataToken)
+          setToken(data.dataToken)
+          setIsLoading(false)
+        })
+        .catch(error => {
+          console.error('Error fetching token:', error)
+          setIsLoading(false)
+        })
+    }
+  }, [identity])
+
+  if (isLoading) {
+    return (
+      <Box sx={{ backgroundColor: 'black' }}>
+        <Typography sx={{}}>Loading...</Typography>
       </Box>
-    </div>
-  )
+    )
+  }
+
+  return <RoomComponent token={token} />
 }
 
 export default App

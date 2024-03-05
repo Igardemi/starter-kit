@@ -2,6 +2,7 @@
 import React, { useEffect, useState, Fragment } from 'react'
 import { Unity, useUnityContext } from 'react-unity-webgl'
 import { Grid, Button, CircularProgress, Box } from '@mui/material'
+
 // ** Next Import
 import { useRouter } from 'next/router'
 
@@ -66,6 +67,7 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
         '(\\#[-a-z\\d_]*)?$',
       'i'
     )
+
     return !!pattern.test(src)
   }
 

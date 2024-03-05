@@ -1,31 +1,26 @@
-import React, { useEffect } from 'react'
-import { LiveKitRoom, StageView, useRoom } from '@livekit/react-components'
-import Box from '@mui/material/Box'
-import '@livekit/react-components/dist/index.css'
+import React from 'react'
+import '@livekit/components-styles'
+import { ControlBar, LiveKitRoom, RoomAudioRenderer } from '@livekit/components-react'
 
 // Define las props que espera recibir el componente
 interface RoomComponentProps {
   token: string
-  url: string
 }
 
-const RoomComponent: React.FC<RoomComponentProps> = ({ token, url }) => {
-  const { connect, isConnecting } = useRoom()
-
-  useEffect(() => {
-    if (token) {
-      connect(url, token).catch(console.error)
-    }
-  }, [connect, token, url])
-
-  if (isConnecting) {
-    return <div>Conectando a la sala...</div>
+const RoomComponent: React.FC<RoomComponentProps> = ({ token }) => {
+  if (!token || token === '') {
+    return (
+      <div className='d-flex justify-content-center align-items-center' style={{ backgroundColor: 'black' }}>
+        <h2 className='text-white'>Reiciving Token Livekit</h2>
+      </div>
+    )
   }
 
   return (
-    <Box>
-      <LiveKitRoom url={url} token={token}></LiveKitRoom>
-    </Box>
+    <LiveKitRoom video={true} audio={true} token={token} serverUrl={'wss://futuraspaceserver12.link'} connect={true}>
+      <RoomAudioRenderer />
+      <ControlBar />
+    </LiveKitRoom>
   )
 }
 
