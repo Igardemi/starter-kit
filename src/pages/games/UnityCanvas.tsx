@@ -58,9 +58,16 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
     updateConfig().catch(console.error)
 
     return () => {
-      handleClickBack()
+      // Crear una función asíncrona dentro de la función de limpieza
+      const cleanUpAsync = async () => {
+        await handleClickBack() // Asegúrate de que esta función espera a que Unity se desmonte completamente
+        console.log('Unity desmontado correctamente')
+      }
+
+      // Llamar a la función asíncrona
+      cleanUpAsync()
     }
-  }, [src, isConfigured])
+  }, [src])
 
   useEffect(() => {
     const handleMensaje = (event: MessageEvent) => {
