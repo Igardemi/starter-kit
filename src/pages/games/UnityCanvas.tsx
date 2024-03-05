@@ -12,10 +12,10 @@ interface UnityCanvasProps {
 
 const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
   const [config, setConfig] = useState({
-    loaderUrl: ``,
-    dataUrl: ``,
-    frameworkUrl: ``,
-    codeUrl: ``
+    loaderUrl: '',
+    dataUrl: '',
+    frameworkUrl: '',
+    codeUrl: ''
   })
   const [isConfigured, setIsConfigured] = useState(false)
   const { unityProvider, loadingProgression, isLoaded, unload, requestFullscreen } = useUnityContext(config)
@@ -28,7 +28,7 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
         await handleClickBack()
         setIsConfigured(false)
       }
-      if (!isConfigured && src !== '') {
+      if (!isConfigured) {
         setConfig({
           loaderUrl: `${src}.loader.js`,
           dataUrl: `${src}.data`,
@@ -39,6 +39,10 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
       }
     }
     updateConfig().catch(console.error)
+
+    return () => {
+      handleClickBack
+    }
   }, [src, isConfigured, router])
 
   useEffect(() => {
