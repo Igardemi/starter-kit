@@ -63,6 +63,7 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
   async function handleClickBack() {
     try {
       console.log('>> Vamos a desmontar Unity')
+      await unload()
       setConfig({
         loaderUrl: '',
         dataUrl: '',
@@ -70,7 +71,6 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
         codeUrl: ''
       })
       setIsConfigured(false)
-      await unload()
       console.log('>> Unity desmontado')
     } catch (error) {
       console.error('Error al descargar el juego Unity:', error)
