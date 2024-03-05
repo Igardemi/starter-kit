@@ -6,19 +6,29 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Home',
       path: '/home',
-      icon: 'mdi:home-outline',
+      icon: 'mdi:home-outline'
+    },
+    {
+      title: 'liveKit',
+      path: '/livekit',
+      icon: 'mdi:account-voice'
+    },
+    {
+      title: 'Games',
+      path: '/games',
+      icon: 'mdi:games'
     },
     {
       title: 'Second Page',
       path: '/second-page',
-      icon: 'mdi:email-outline',
+      icon: 'mdi:email-outline'
     },
     {
       path: '/acl',
       action: 'read',
       subject: 'acl-page',
       title: 'Access Control',
-      icon: 'mdi:shield-outline',
+      icon: 'mdi:shield-outline'
     }
   ]
 }

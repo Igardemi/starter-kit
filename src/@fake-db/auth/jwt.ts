@@ -2,13 +2,16 @@
 import jwt from 'jsonwebtoken'
 
 // ** Mock Adapter
-import mock from 'src/@fake-db/mock'
+import axios from 'axios'
+import MockAdapter from 'axios-mock-adapter'
 
 // ** Default AuthConfig
 import defaultAuthConfig from 'src/configs/auth'
 
 // ** Types
 import { UserDataType } from 'src/context/types'
+
+const mock = new MockAdapter(axios)
 
 const users: UserDataType[] = [
   {
@@ -46,16 +49,18 @@ mock.onPost('/jwt/login').reply(request => {
   }
 
   const user = users.find(u => u.email === email && u.password === password)
-  if (user && jwtConfig.secret) {
+  if (user && jwtConfig?.secret) {
     console.log(process.env.NEXT_PUBLIC_JWT_SECRET)
     console.log(process.env.NEXT_PUBLIC_JWT_EXPIRATION)
     console.log(process.env.NEXT_PUBLIC_JWT_REFRESH_TOKEN_SECRET)
-    const accessToken = jwt.sign(
-      { id: user.id },
-      jwtConfig.secret,
-      { expiresIn: jwtConfig.expirationTime || '1h' } // Proporciona un valor por defecto si es necesario
-    )
+    // const accessToken = jwt.sign(
+    //   { user: user },
+    //   jwtConfig.secret,
+    //   { expiresIn: jwtConfig.expirationTime || '1h' } // Proporciona un valor por defecto si es necesario
+    // )
+    const accessToken = ''
     console.log(accessToken)
+
     const response = {
       accessToken,
       userData: { ...user, password: undefined }
