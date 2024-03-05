@@ -59,7 +59,7 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
     return () => {
       handleClickBack()
     }
-  }, [])
+  }, [src, isConfigured])
 
   useEffect(() => {
     const handleMensaje = (event: MessageEvent) => {
