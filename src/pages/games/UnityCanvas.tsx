@@ -52,6 +52,31 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
       }
     }
     updateConfig().catch(console.error)
+
+    return () => {
+      async function cleanup() {
+        try {
+          console.log('>> Desmontando Unity...')
+
+          // Desmonta la instancia de Unity
+          await unload()
+          console.log('>> Unity desmontado.')
+
+          // Antes de desmontar el componente, limpia cualquier referencia a Unity en el DOM.
+          const scripts = document.querySelectorAll("script[src*='unity']")
+          scripts.forEach(script => {
+            script.parentNode && script.parentNode.removeChild(script)
+          })
+          console.log('Scripts de Unity eliminados del DOM.')
+          router.push('/games')
+        } catch (error) {
+          console.error('Error al desmontar Unity:', error)
+        }
+      }
+
+      // Llama a la función de limpieza
+      cleanup()
+    }
   }, [src])
 
   useEffect(() => {
@@ -71,12 +96,17 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
 
   async function handleClickBack() {
     try {
-      console.log('>> Vamos a desmontar Unity')
-      await unload()
-      console.log('>> Unity desmontado')
+      // Antes de desmontar el componente, limpia cualquier referencia a Unity en el DOM.
+      const scripts = document.querySelectorAll("script[src*='unity']")
+      scripts.forEach(script => {
+        script.parentNode && script.parentNode.removeChild(script)
+      })
+      console.log('Scripts de Unity eliminados del DOM.')
       router.push('/')
+
+      // Agrega aquí la eliminación de otros scripts relacionados con Unity si es necesario
     } catch (error) {
-      console.error('Error al descargar el juego Unity:', error)
+      console.error('Error al desmontar Unity:', error)
     }
   }
 
