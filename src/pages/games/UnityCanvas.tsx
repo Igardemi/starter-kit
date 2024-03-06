@@ -12,10 +12,10 @@ interface UnityCanvasProps {
 
 const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
   const [config, setConfig] = useState({
-    loaderUrl: '',
-    dataUrl: '',
-    frameworkUrl: '',
-    codeUrl: ''
+    loaderUrl: `${src}.loader.js`,
+    dataUrl: `${src}.data`,
+    frameworkUrl: `${src}.framework.js`,
+    codeUrl: `${src}.wasm`
   })
   const [isConfigured, setIsConfigured] = useState(false)
   const { unityProvider, loadingProgression, isLoaded, unload, requestFullscreen } = useUnityContext(config)
@@ -72,9 +72,9 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
   async function handleClickBack() {
     try {
       console.log('>> Vamos a desmontar Unity')
-      router.push('/')
       console.log('>> Unity desmontado')
       setIsConfigured(false)
+      router.push('/')
     } catch (error) {
       console.error('Error al descargar el juego Unity:', error)
     }
@@ -85,37 +85,35 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
   }
 
   return (
-    <Fragment>
-      <Box sx={{ width: '100%', p: 2, backgroundColor: 'lightgrey' }}>
-        {loadingProgression < 1 && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 600 }}>
-            <CircularProgress variant='determinate' value={loadingProgression * 100} />
-            <Box>Loading Application... {Math.round(loadingProgression * 100)}%</Box>
-          </Box>
-        )}
-        <Unity
-          unityProvider={unityProvider}
-          id='my-canvas-id'
-          style={{
-            visibility: isLoaded ? 'visible' : 'hidden',
-            height: 600,
-            width: '100%'
-          }}
-        />
-        <Grid container spacing={2} justifyContent='center'>
-          <Grid item>
-            <Button variant='contained' onClick={handleClickBack}>
-              Back
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button variant='contained' onClick={handleClickEnterFullscreen}>
-              Enter Fullscreen
-            </Button>
-          </Grid>
+    <Box sx={{ width: '100%', p: 2, backgroundColor: 'lightgrey' }}>
+      {loadingProgression < 1 && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 600 }}>
+          <CircularProgress variant='determinate' value={loadingProgression * 100} />
+          <Box>Loading Application... {Math.round(loadingProgression * 100)}%</Box>
+        </Box>
+      )}
+      <Unity
+        unityProvider={unityProvider}
+        id='my-canvas-id'
+        style={{
+          visibility: isLoaded ? 'visible' : 'hidden',
+          height: 600,
+          width: '100%'
+        }}
+      />
+      <Grid container spacing={2} justifyContent='center'>
+        <Grid item>
+          <Button variant='contained' onClick={handleClickBack}>
+            Back
+          </Button>
         </Grid>
-      </Box>
-    </Fragment>
+        <Grid item>
+          <Button variant='contained' onClick={handleClickEnterFullscreen}>
+            Enter Fullscreen
+          </Button>
+        </Grid>
+      </Grid>
+    </Box>
   )
 }
 
