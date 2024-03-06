@@ -61,21 +61,13 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
           // Desmonta la instancia de Unity
           await unload()
           console.log('>> Unity desmontado.')
-
-          // Antes de desmontar el componente, limpia cualquier referencia a Unity en el DOM.
-          const scripts = document.querySelectorAll("script[src*='unity']")
-          scripts.forEach(script => {
-            script.parentNode && script.parentNode.removeChild(script)
-          })
-          console.log('Scripts de Unity eliminados del DOM.')
-          router.push('/games')
         } catch (error) {
           console.error('Error al desmontar Unity:', error)
         }
       }
 
       // Llama a la función de limpieza
-      cleanup()
+      cleanup().then(() => handleClickBack())
     }
   }, [src])
 
@@ -102,7 +94,7 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
         script.parentNode && script.parentNode.removeChild(script)
       })
       console.log('Scripts de Unity eliminados del DOM.')
-      router.push('/')
+      router.push('/games')
 
       // Agrega aquí la eliminación de otros scripts relacionados con Unity si es necesario
     } catch (error) {
@@ -124,7 +116,7 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
       )}
       <Unity
         unityProvider={unityProvider}
-        id='my-canvas-id'
+        id='mycanvasid'
         style={{
           visibility: isLoaded ? 'visible' : 'hidden',
           height: 600,
