@@ -6,40 +6,24 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 
 interface MyNavbarProps {
-  setUnitySrc: (src: string) => void
+  onSelect: (src: string) => void
 }
 
-const MyNavbar: React.FC<MyNavbarProps> = ({ setUnitySrc }) => {
+const Navbar: React.FC<MyNavbarProps> = ({ onSelect }) => {
   return (
     <AppBar position='static'>
       <Toolbar>
         <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
           Spacecreator
         </Typography>
-        <Button
-          color='inherit'
-          onClick={() =>
-            setUnitySrc('https://futuraspaceserver4.link/mini_games/bridge_game_client/Build/bridge_game_client')
-          }
-        >
+        {/* Botones para seleccionar el componente de Unity */}
+        <Button color='inherit' onClick={() => onSelect('bridge')}>
           Bridge
         </Button>
-        <Button
-          color='inherit'
-          onClick={() =>
-            setUnitySrc('https://futuraspaceserver4.link/mini_games/platform_game_client/Build/platform_game_client')
-          }
-        >
+        <Button color='inherit' onClick={() => onSelect('platform')}>
           Platform
         </Button>
-        <Button
-          color='inherit'
-          onClick={() =>
-            setUnitySrc(
-              'https://futuraspaceserver4.link/mini_games/mountainking_game_client/Build/mountainking_game_client'
-            )
-          }
-        >
+        <Button color='inherit' onClick={() => onSelect('mountain')}>
           Mountainking
         </Button>
       </Toolbar>
@@ -47,4 +31,4 @@ const MyNavbar: React.FC<MyNavbarProps> = ({ setUnitySrc }) => {
   )
 }
 
-export default MyNavbar
+export default Navbar

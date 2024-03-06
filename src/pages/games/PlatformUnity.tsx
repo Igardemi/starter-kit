@@ -1,23 +1,23 @@
 // /src/UnityCanvas.tsx
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Unity, useUnityContext } from 'react-unity-webgl'
 import { Grid, Button, CircularProgress, Box } from '@mui/material'
 
 // ** Next Import
 import { useRouter } from 'next/router'
 
-interface UnityCanvasProps {
-  src: string
-}
+const PlatformUnity = () => {
+  const [src, setSrc] = useState(
+    'https://futuraspaceserver4.link/mini_games/platform_game_client/Build/platform_game_client'
+  )
 
-const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
-  const canvasRef = useRef(null)
   const [config, setConfig] = useState({
     loaderUrl: `${src}.loader.js`,
     dataUrl: `${src}.data`,
     frameworkUrl: `${src}.framework.js`,
     codeUrl: `${src}.wasm`
   })
+
   const [isConfigured, setIsConfigured] = useState(false)
   const { unityProvider, loadingProgression, isLoaded, unload, requestFullscreen } = useUnityContext(config)
   const router = useRouter()
@@ -42,7 +42,6 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
   useEffect(() => {
     const updateConfig = async () => {
       if (isValidSrc(src)) {
-        console.log('<<< :', src)
         setConfig({
           loaderUrl: `${src}.loader.js`,
           dataUrl: `${src}.data`,
@@ -54,30 +53,25 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
     }
     updateConfig().catch(console.error)
 
-    // return () => {
-    //   async function cleanup() {
-    //     try {
-    //       console.log('>> Desmontando Unity...')
+    return () => {
+      async function cleanup() {
+        try {
+          await unload()
+        } catch (error) {
+          console.error('Error al desmontar Unity:', error)
+        }
+      }
 
-    //       // Desmonta la instancia de Unity
-    //       await unload()
-    //       console.log('>> Unity desmontado.')
-    //     } catch (error) {
-    //       console.error('Error al desmontar Unity:', error)
-    //     }
-    //   }
-
-    //   // Llama a la función de limpieza
-    //   cleanup().then(() => handleClickBack())
-    // }
+      console.log('>> Desmontando Unity...')
+      cleanup()
+      console.log('>> Unity desmontado.')
+    }
   }, [src])
 
   useEffect(() => {
     const handleMensaje = async (event: MessageEvent) => {
       console.log('Mensaje recibido:', event.data)
       if (event.data && event.data.action === 'BackToMainFrame') {
-        handleClickBack()
-        router.replace('/')
       }
     }
 
@@ -90,7 +84,12 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
 
   async function handleClickBack() {
     try {
-      await unload()
+      try {
+        await unload()
+      } catch (error) {
+        console.error('Error al desmontar Unity:', error)
+      }
+      router.replace('/')
     } catch (error) {
       console.error('Error al desmontar Unity:', error)
     }
@@ -109,8 +108,7 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
         </Box>
       )}
       <Unity
-        id='canvasID'
-        ref={canvasRef}
+        id='unityplatform'
         unityProvider={unityProvider}
         style={{
           visibility: isLoaded ? 'visible' : 'hidden',
@@ -134,4 +132,4 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
   )
 }
 
-export default UnityCanvas
+export default PlatformUnity
