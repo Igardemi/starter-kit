@@ -55,10 +55,10 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
   }, [src])
 
   useEffect(() => {
-    const handleMensaje = (event: MessageEvent) => {
+    const handleMensaje = async (event: MessageEvent) => {
       console.log('Mensaje recibido:', event.data)
       if (event.data && event.data.action === 'BackToMainFrame') {
-        router.push('/')
+        await handleClickBack()
       }
     }
 
@@ -72,8 +72,8 @@ const UnityCanvas: React.FC<UnityCanvasProps> = ({ src }) => {
   async function handleClickBack() {
     try {
       console.log('>> Vamos a desmontar Unity')
+      await unload()
       console.log('>> Unity desmontado')
-      setIsConfigured(false)
       router.push('/')
     } catch (error) {
       console.error('Error al descargar el juego Unity:', error)
