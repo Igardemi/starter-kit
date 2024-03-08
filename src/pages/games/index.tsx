@@ -25,7 +25,16 @@ function Games() {
   return (
     <Box>
       <Navbar onSelect={setUnitySrc} />
-      {renderUnityComponent()}
+      <Box
+        display='flex'
+        height='100%'
+        flexDirection='column'
+        justifyContent='center'
+        alignItems='center'
+        sx={{ backgroundColor: 'black' }}
+      >
+        {renderUnityComponent()}
+      </Box>
     </Box>
   )
 }

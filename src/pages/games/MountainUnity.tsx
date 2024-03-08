@@ -45,15 +45,14 @@ const PlatformUnity: React.FC = () => {
           ></Box>
         </Box>
       )}
-      <Box
-        component='iframe'
-        sx={{ visibility: unityLoaded ? 'visible' : 'hidden' }}
+      <iframe
+        style={{ visibility: unityLoaded ? 'visible' : 'hidden' }}
         title='frame-platform'
         src='https://futuraspaceserver4.link/mini_games/mountainking_game_client/index.html'
         width='900'
         height='560'
         scrolling='no'
-      ></Box>
+      ></iframe>
     </Box>
   )
 }

@@ -18,6 +18,7 @@ const RoomStage: React.FC<RoomStageProps> = ({ token }) => {
   return (
     <LiveKitRoom video={true} audio={true} token={token} serverUrl={'wss://futuraspaceserver12.link'} connect={true}>
       <RoomAudioRenderer />
+      <ControlBar />
     </LiveKitRoom>
   )
 }
