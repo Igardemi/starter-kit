@@ -29,6 +29,22 @@ const users: UserDataType[] = [
     fullName: 'Jane Doe',
     username: 'janedoe',
     email: 'client@materialize.com'
+  },
+  {
+    id: 3,
+    role: 'admin',
+    password: 'josegm',
+    fullName: 'Jose',
+    username: 'JoseGM',
+    email: 'josegm@materialize.com'
+  },
+  {
+    id: 4,
+    role: 'admin',
+    password: 'ivancito',
+    fullName: 'Ivan',
+    username: 'ivancito',
+    email: 'ivancito@materialize.com'
   }
 ]
 
@@ -57,7 +73,7 @@ mock.onPost('/jwt/login').reply(request => {
     // const accessToken = jwt.sign(
     //   { user: user },
     //   jwtConfig.secret,
-    //   { expiresIn: jwtConfig.expirationTime || '1h' } // Proporciona un valor por defecto si es necesario
+    //   { expiresIn: jwtConfig.expirationTime || '6h' } // Proporciona un valor por defecto si es necesario
     // )
 
     const accessToken = ''
