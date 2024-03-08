@@ -9,7 +9,8 @@ const withTM = require('next-transpile-modules')([
   '@fullcalendar/react',
   '@fullcalendar/daygrid',
   '@fullcalendar/list',
-  '@fullcalendar/timegrid'
+  '@fullcalendar/timegrid',
+  '@livekit/components-styles'
 ])
 
 module.exports = withTM({
