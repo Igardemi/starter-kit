@@ -18,7 +18,11 @@ function Games() {
       case 'mountain':
         return <MountainUnity />
       default:
-        return <div>Select a game from the navbar.</div>
+        return (
+          <Box display='flex' height='100%'>
+            Select a game from the navbar.
+          </Box>
+        )
     }
   }
 

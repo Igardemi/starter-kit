@@ -13,7 +13,7 @@ const Navbar: React.FC<MyNavbarProps> = ({ onSelect }) => {
   return (
     <AppBar position='static'>
       <Toolbar>
-        <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+        <Typography variant='h6' sx={{ flexGrow: 1 }}>
           Spacecreator
         </Typography>
         {/* Botones para seleccionar el componente de Unity */}
