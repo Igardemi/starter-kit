@@ -1,6 +1,6 @@
 // /src/App.js
 import React, { useState, useEffect } from 'react'
-import RoomComponent from './roomComponent'
+import RoomStage from './RoomStage'
 import { Box, Typography } from '@mui/material'
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
     )
   }
 
-  return <RoomComponent token={token} />
+  return <RoomStage token={token} />
 }
 
 export default App
