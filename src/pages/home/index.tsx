@@ -10,17 +10,19 @@ const Home = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='Kick start your project 🚀'></CardHeader>
+          <CardHeader title='Spacecreator 2.0 🚀'></CardHeader>
           <CardContent>
             <Typography sx={{ mb: 2 }}>All the best for your new project.</Typography>
             <Typography>
-              Please make sure to read our Template Documentation to understand where to go from here and how to use our
-              template.
+              SpaceCreator es unaplataforma de intranet diseñada para revolucionar la forma en que las organizaciones
+              acceden a sus herramientas de trabajo diario y colaboran entre sí. Integra espacios de trabajo
+              tridimensionales (3D) con una amplia gama de aplicaciones y recursos empresariales, SpaceCreator ofrece
+              una experiencia única e inmersiva que va más allá de las tradicionales plataformas de intranet.
             </Typography>
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <Card>
           <CardHeader title='ACL and JWT 🔒'></CardHeader>
           <CardContent>
@@ -30,7 +32,7 @@ const Home = () => {
             <Typography>Please read our Authentication and ACL Documentations to get more out of them.</Typography>
           </CardContent>
         </Card>
-      </Grid>
+      </Grid> */}
     </Grid>
   )
 }
