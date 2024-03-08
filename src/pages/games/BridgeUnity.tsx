@@ -47,6 +47,7 @@ const BridgeUnity: React.FC = () => {
       )}
       <iframe
         // style={{ visibility: unityLoaded ? 'visible' : 'hidden' }}
+
         title='frame-platform'
         src='https://futuraspaceserver4.link/mini_games/bridge_game_client/index.html'
         width='900'
