@@ -8,8 +8,7 @@ import Link from 'next/link'
 import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
-// import Checkbox from '@mui/material/Checkbox'
-
+import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
 import InputLabel from '@mui/material/InputLabel'
 import IconButton from '@mui/material/IconButton'
@@ -329,10 +328,11 @@ const LoginPage = () => {
               <Box
                 sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
               >
-                {/* <FormControlLabel
+                <FormControlLabel
+                  disabled
                   label='Remember Me'
                   control={<Checkbox checked={rememberMe} onChange={e => setRememberMe(e.target.checked)} />}
-                /> */}
+                />
                 <Typography
                   variant='body2'
                   component={Link}
