@@ -49,7 +49,7 @@ const PlatformUnity: React.FC = () => {
         title='frame-platform'
         src='https://futuraspaceserver4.link/mini_games/platform_game_client/index.html'
         width='900'
-        height='560'
+        height='600'
         scrolling='no'
       ></iframe>
     </Box>

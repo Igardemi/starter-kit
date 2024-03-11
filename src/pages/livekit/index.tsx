@@ -1,7 +1,8 @@
 // /src/App.js
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import RoomStage from './RoomStage'
 import { Box, Typography } from '@mui/material'
+import '@livekit/components-styles';
 
 function App() {
   const [identity, setIdentity] = useState('')
@@ -10,7 +11,6 @@ function App() {
   const room = 'demo'
 
   useEffect(() => {
-    // Generar identity al montar el componente
     const newIdentity = `user_${Math.floor(Math.random() * 10000)}`
     setIdentity(newIdentity)
   }, [])
@@ -21,7 +21,6 @@ function App() {
       fetch(`https://futuraspaceserver4.link:3006/get-token?room=${room.toString()}&identity=${identity.toString()}`)
         .then(response => response.json())
         .then(data => {
-          console.log('>> Token recibido:' + data.dataToken)
           setToken(data.dataToken)
           setIsLoading(false)
         })
@@ -34,16 +33,17 @@ function App() {
 
   if (isLoading) {
     return (
-      <Box sx={{ backgroundColor: 'white' }}>
+      <Box>
         <Typography sx={{color:'black'}}>Loading...</Typography>
       </Box>
     )
   }
 
   return (
-  <Box width='100%' height='100%' flexDirection='column' justifyContent='center' alignItems='center' pt={4}>
-  <RoomStage token={token} username={identity} />
-  </Box>);
+    <Fragment>
+      <RoomStage token={token} username={identity} />
+    </Fragment>
+);
 }
 
 export default App

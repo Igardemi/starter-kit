@@ -5,6 +5,7 @@ import {
   formatChatMessageLinks,
   LocalUserChoices,
 } from '@livekit/components-react';
+import '@livekit/components-styles';
 import { Box } from '@mui/material';
 import {
   Room,
@@ -46,7 +47,7 @@ const RoomStage: NextPage<RoomStageProps> = ({ token, username }) => {
     setPreJoinChoices(values);
   }
   return (
-      <Box sx={{backgroundColor:'#282a42', padding:6, display:'flex', justifyContent:'center', alignItems:'center'}}>
+      <Box>
         {roomName && !Array.isArray(roomName) && preJoinChoices ? (
           <ActiveRoom
             roomName={roomName}
@@ -57,11 +58,11 @@ const RoomStage: NextPage<RoomStageProps> = ({ token, username }) => {
             }}
           ></ActiveRoom>
         ) : (
-          <div style={{ display: 'grid', placeItems: 'center', height: '100%' }}>
+          <div style={{ display: 'layout', placeItems: 'center', height: '100%' }}>
             <PreJoinNoSSR
               onError={(err) => console.log('error while setting up prejoin', err)}
               defaults={{
-                videoEnabled: true,
+                videoEnabled: false,
                 audioEnabled: true,
               }}
               onSubmit={handlePreJoinSubmit}
