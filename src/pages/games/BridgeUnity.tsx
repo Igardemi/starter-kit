@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box } from '@mui/material'
+import { Box, IconButton, Menu, MenuItem } from '@mui/material';
 
 interface MensajeEvent {
   action?: string
@@ -9,6 +9,15 @@ interface MensajeEvent {
 const BridgeUnity: React.FC = () => {
   const [progress, setProgress] = useState<number>(0)
   const [unityLoaded, setUnityLoaded] = useState<boolean>(false)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
 
   useEffect(() => {
     const handleMensaje = (event: MessageEvent<MensajeEvent>) => {
@@ -33,6 +42,33 @@ const BridgeUnity: React.FC = () => {
 
   return (
     <Box display='flex' height='100%' flexDirection='column' justifyContent='center' alignItems='center' pt={4}>
+       <IconButton  sx={{display:'absolute', top:'46px', left:'-420px', fontSize:'26px', color:'white'}}
+          aria-label="más opciones"
+          aria-controls="long-menu"
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+        >
+          Menu
+        </IconButton>
+        <Menu
+          id="long-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={open}
+          onClose={handleClose}
+          PaperProps={{
+            style: {
+              maxHeight: 48 * 4.5,
+              width: '20ch',
+            },
+          }}
+        >
+          {/* Aquí se añaden las opciones del menú */}
+          <MenuItem onClick={handleClose}>Opción 1</MenuItem>
+          <MenuItem onClick={handleClose}>Opción 2</MenuItem>
+          <MenuItem onClick={handleClose}>Opción 3</MenuItem>
+        </Menu>
       {!unityLoaded && (
         <Box width='100%' mb={2}>
           <Box
@@ -48,8 +84,8 @@ const BridgeUnity: React.FC = () => {
       <iframe
         title='frame-platform'
         src='https://futuraspaceserver4.link/mini_games/bridge_game_client/index.html'
-        width='900'
-        height='600'
+        width='960'
+        height='640'
         scrolling='no'
       ></iframe>
     </Box>
