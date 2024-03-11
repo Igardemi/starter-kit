@@ -43,11 +43,8 @@ const RoomStage: NextPage<RoomStageProps> = ({ token, username }) => {
   }
   );
 
-  function handlePreJoinSubmit(values: LocalUserChoices) {
-    setPreJoinChoices(values);
-  }
   return (
-      <Box>
+      <Box sx={{display:'flex', justifyContent:'center',mt:10}}>
         {roomName && !Array.isArray(roomName) && preJoinChoices ? (
           <ActiveRoom
             roomName={roomName}
@@ -58,15 +55,8 @@ const RoomStage: NextPage<RoomStageProps> = ({ token, username }) => {
             }}
           ></ActiveRoom>
         ) : (
-          <div style={{ display: 'layout', placeItems: 'center', height: '100%' }}>
-            <PreJoinNoSSR
-              onError={(err) => console.log('error while setting up prejoin', err)}
-              defaults={{
-                videoEnabled: false,
-                audioEnabled: true,
-              }}
-              onSubmit={handlePreJoinSubmit}
-            ></PreJoinNoSSR>
+          <div style={{ display: 'grid', placeItems: 'center', height: '100%' }}>
+            No funciona!
           </div>
         )}
       </Box>

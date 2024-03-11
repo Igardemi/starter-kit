@@ -33,16 +33,16 @@ function App() {
 
   if (isLoading) {
     return (
-      <Box>
+      <Box sx={{display:'flex', justifyContent:'center',mt:10}}>
         <Typography sx={{color:'black'}}>Loading...</Typography>
-      </Box>
+        </Box>
     )
   }
 
   return (
-    <Fragment>
+    <Box sx={{display:'flex', alignContent:'center', justifyContent:'center', mt:20}}>
       <RoomStage token={token} username={identity} />
-    </Fragment>
+      </Box>
 );
 }
 

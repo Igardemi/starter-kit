@@ -31,12 +31,6 @@ code[class*='language-'] {
   flex-direction: row;
 }
 
-.lk-control-bar{
-  display: block;
-  position: absolute;
-  bottom: 0px;
-}
-
 .lk-focus-layout-wrapper,.lk-grid-layout-wrapper{
   position:relative;
   display:flex;
@@ -69,8 +63,10 @@ code[class*='language-'] {
     background:red;
     padding:1rem;
     border-radius:var(--lk-border-radius);
-    display:flex;flex-direction:column;
-    align-items:center;gap:.5rem;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:.5rem;
     padding:.75rem 1.25rem;
     background-color:var(--lk-bg);
     border:1px solid var(--lk-border-color);
