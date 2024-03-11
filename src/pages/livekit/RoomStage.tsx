@@ -2,7 +2,8 @@
 import {
   LiveKitRoom,
   VideoConference,
-  formatChatMessageLinks
+  formatChatMessageLinks,
+  LocalUserChoices,
 } from '@livekit/components-react';
 import { Box } from '@mui/material';
 import {
@@ -14,11 +15,10 @@ import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import { LocalUserChoices } from '../../views/pages/components/MyPreJoin';
 
 const PreJoinNoSSR = dynamic(
   async () => {
-    return (await import('../../views/pages/components/MyPreJoin')).PreJoin;
+    return (await import('@livekit/components-react')).PreJoin;
   },
   { ssr: false },
 );
@@ -75,7 +75,7 @@ type ActiveRoomProps = {
   onLeave?: () => void;
 };
 const ActiveRoom = ({ token, userChoices, onLeave }: ActiveRoomProps) => {
-   
+  
   const liveKitUrl = "wss://futuraspaceserver12.link";
 
   const room = React.useMemo(() => new Room(), []);
