@@ -40,7 +40,10 @@ function App() {
     )
   }
 
-  return <RoomStage token={token} />
+  return (
+  <Box display='flex' height='100%' flexDirection='column' justifyContent='center' alignItems='center' pt={4}>
+  <RoomStage token={token} />
+  </Box>);
 }
 
 export default App

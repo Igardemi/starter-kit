@@ -1,26 +1,108 @@
-import React from 'react'
-import '@livekit/components-styles'
-import { ControlBar, LiveKitRoom, RoomAudioRenderer } from '@livekit/components-react'
+'use client';
+import {
+  LiveKitRoom,
+  VideoConference,
+  formatChatMessageLinks
+} from '@livekit/components-react';
+import { Box } from '@mui/material';
+import {
+  Room,
+  RoomConnectOptions
+} from 'livekit-client';
+
+import type { NextPage } from 'next';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import * as React from 'react';
+import { LocalUserChoices } from '../../views/pages/components/MyPreJoin';
+
+const PreJoinNoSSR = dynamic(
+  async () => {
+    return (await import('../../views/pages/components/MyPreJoin')).PreJoin;
+  },
+  { ssr: false },
+);
 
 interface RoomStageProps {
   token: string
 }
 
-const RoomStage: React.FC<RoomStageProps> = ({ token }) => {
-  if (!token || token === '') {
-    return (
-      <div className='valign-wrapper' style={{ backgroundColor: 'black', height: '100vh', width: '100vw' }}>
-        <h2 className='white-text center-align'>Receiving Token Livekit</h2>
-      </div>
-    )
+const RoomStage: NextPage<RoomStageProps> = ({ token }) => {
+  const router = useRouter();
+  const roomName: string = "demo";
+
+  const [preJoinChoices, setPreJoinChoices] = React.useState<LocalUserChoices | undefined>(
+    undefined,
+  );
+
+  function handlePreJoinSubmit(values: LocalUserChoices) {
+    setPreJoinChoices(values);
   }
+  return (
+      <Box sx={{backgroundColor:'black'}}>
+        {roomName && !Array.isArray(roomName) && preJoinChoices ? (
+          <ActiveRoom
+            roomName={roomName}
+            token = {token}
+            userChoices={preJoinChoices}
+            onLeave={() => {
+              router.push('/');
+            }}
+          ></ActiveRoom>
+        ) : (
+          <div style={{ display: 'grid', placeItems: 'center', height: '100%' }}>
+            <PreJoinNoSSR
+              onError={(err) => console.log('error while setting up prejoin', err)}
+              defaults={{
+                videoEnabled: true,
+                audioEnabled: true,
+              }}
+              onSubmit={handlePreJoinSubmit}
+            ></PreJoinNoSSR>
+          </div>
+        )}
+      </Box>
+  );
+};
+
+export default RoomStage;
+
+type ActiveRoomProps = {
+  userChoices: LocalUserChoices;
+  roomName: string;
+  token: string;
+  region?: string;
+  onLeave?: () => void;
+};
+const ActiveRoom = ({ token, userChoices, onLeave }: ActiveRoomProps) => {
+   
+  const liveKitUrl = "wss://futuraspaceserver12.link";
+
+  const room = React.useMemo(() => new Room(), []);
+
+  const connectOptions = React.useMemo((): RoomConnectOptions => {
+    return {
+      autoSubscribe: true,
+    };
+  }, []);
 
   return (
-    <LiveKitRoom video={true} audio={true} token={token} serverUrl={'wss://futuraspaceserver12.link'} connect={true}>
-      <RoomAudioRenderer />
-      <ControlBar />
-    </LiveKitRoom>
-  )
-}
-
-export default RoomStage
+    <>
+      {liveKitUrl && (
+        <LiveKitRoom
+          room={room}
+          token={token}
+          serverUrl={liveKitUrl}
+          connectOptions={connectOptions}
+          video={userChoices.videoEnabled}
+          audio={userChoices.audioEnabled}
+          onDisconnected={onLeave}
+        >
+          <VideoConference
+            chatMessageFormatter={formatChatMessageLinks}
+          />
+        </LiveKitRoom>
+      )}
+    </>
+  );
+};
