@@ -34,15 +34,15 @@ function App() {
 
   if (isLoading) {
     return (
-      <Box sx={{ backgroundColor: 'black' }}>
-        <Typography>Loading...</Typography>
+      <Box sx={{ backgroundColor: 'white' }}>
+        <Typography sx={{color:'black'}}>Loading...</Typography>
       </Box>
     )
   }
 
   return (
-  <Box display='flex' height='100%' flexDirection='column' justifyContent='center' alignItems='center' pt={4}>
-  <RoomStage token={token} />
+  <Box width='100%' height='100%' flexDirection='column' justifyContent='center' alignItems='center' pt={4}>
+  <RoomStage token={token} username={identity} />
   </Box>);
 }
 

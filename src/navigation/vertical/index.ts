@@ -9,7 +9,7 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'mdi:home-outline'
     },
     {
-      title: 'liveKit',
+      title: 'Sala Demo',
       path: '/livekit',
       icon: 'mdi:account-voice'
     },

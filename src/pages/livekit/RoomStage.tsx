@@ -24,22 +24,29 @@ const PreJoinNoSSR = dynamic(
 );
 
 interface RoomStageProps {
-  token: string
+  token: string,
+  username: string
 }
 
-const RoomStage: NextPage<RoomStageProps> = ({ token }) => {
+const RoomStage: NextPage<RoomStageProps> = ({ token, username }) => {
   const router = useRouter();
   const roomName: string = "demo";
 
   const [preJoinChoices, setPreJoinChoices] = React.useState<LocalUserChoices | undefined>(
-    undefined,
+    {
+      videoEnabled: false,
+      audioEnabled: true,
+      videoDeviceId: "",
+      audioDeviceId: "",
+      username: username,
+  }
   );
 
   function handlePreJoinSubmit(values: LocalUserChoices) {
     setPreJoinChoices(values);
   }
   return (
-      <Box sx={{backgroundColor:'black'}}>
+      <Box sx={{backgroundColor:'#282a42', padding:6, display:'flex', justifyContent:'center', alignItems:'center'}}>
         {roomName && !Array.isArray(roomName) && preJoinChoices ? (
           <ActiveRoom
             roomName={roomName}
