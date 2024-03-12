@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef  } from 'react'
 import { Box, IconButton, Menu, MenuItem } from '@mui/material';
 
 interface MensajeEvent {
@@ -11,6 +11,8 @@ const BridgeUnity: React.FC = () => {
   const [unityLoaded, setUnityLoaded] = useState<boolean>(false)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const iframeRef = useRef<HTMLIFrameElement>(null); 
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -18,6 +20,20 @@ const BridgeUnity: React.FC = () => {
     setAnchorEl(null);
   };
 
+  const handleFullScreen = () => {
+    const iframe = iframeRef.current;
+    if (iframe) {
+      if (iframe.requestFullscreen) {
+        iframe.requestFullscreen();
+      } else if ((iframe as any).mozRequestFullScreen) { // Firefox
+        (iframe as any).mozRequestFullScreen();
+      } else if ((iframe as any).webkitRequestFullscreen) { // Chrome, Safari & Opera
+        (iframe as any).webkitRequestFullscreen();
+      } else if ((iframe as any).msRequestFullscreen) { // IE/Edge
+        (iframe as any).msRequestFullscreen();
+      }
+    }
+  };
 
   useEffect(() => {
     const handleMensaje = (event: MessageEvent<MensajeEvent>) => {
@@ -31,6 +47,9 @@ const BridgeUnity: React.FC = () => {
       if (event.data && event.data.action === 'UnityLoaded') {
         setUnityLoaded(true)
       }
+      if (event.data && event.data.action === 'FullScreen') {
+        handleFullScreen()
+      }
     }
 
     window.addEventListener('message', handleMensaje)
@@ -41,8 +60,8 @@ const BridgeUnity: React.FC = () => {
   }, [])
 
   return (
-    <Box display='flex' height='100%' flexDirection='column' justifyContent='center' alignItems='center' pt={4}>
-       <IconButton  sx={{display:'absolute', top:'56px', left:'-420px', fontSize:'26px', color:'white'}}
+    <Box display='flex' height='100%' flexDirection='column' justifyContent='start' alignContent='start' alignItems='start'>
+       <IconButton  sx={{position:'relative', top:'50px', left:'0px', fontSize:'26px', color:'white'}}
           aria-label="más opciones"
           aria-controls="long-menu"
           aria-haspopup="true"
@@ -57,14 +76,7 @@ const BridgeUnity: React.FC = () => {
           keepMounted
           open={open}
           onClose={handleClose}
-          PaperProps={{
-            style: {
-              maxHeight: 48 * 4.5,
-              width: '20ch',
-            },
-          }}
         >
-          {/* Aquí se añaden las opciones del menú */}
           <MenuItem onClick={handleClose}>Opción 1</MenuItem>
           <MenuItem onClick={handleClose}>Opción 2</MenuItem>
           <MenuItem onClick={handleClose}>Opción 3</MenuItem>
@@ -82,10 +94,11 @@ const BridgeUnity: React.FC = () => {
         </Box>
       )}
       <iframe
+      ref={iframeRef}
         title='frame-platform'
         src='https://futuraspaceserver4.link/mini_games/bridge_game_client/index.html'
-        width='100%'
-        height='100%'
+        width='960'
+        height='640'
         scrolling='no'
       ></iframe>
     </Box>

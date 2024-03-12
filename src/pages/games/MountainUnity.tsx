@@ -32,7 +32,7 @@ const PlatformUnity: React.FC = () => {
   }, [])
 
   return (
-    <Box display='flex' flexDirection='column' justifyContent='center' alignItems='center' pt={4}>
+    <Box display='flex' height='100%' flexDirection='column' justifyContent='center' alignItems='center' >
       {!unityLoaded && (
         <Box width='100%' mb={2}>
           <Box
@@ -49,7 +49,7 @@ const PlatformUnity: React.FC = () => {
         title='frame-platform'
         src='https://futuraspaceserver4.link/mini_games/mountainking_game_client/index.html'
         width='960'
-        height='600'
+        height='640'
         scrolling='no'
       ></iframe>
     </Box>
