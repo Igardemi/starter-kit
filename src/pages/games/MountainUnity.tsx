@@ -48,7 +48,7 @@ const PlatformUnity: React.FC = () => {
       <iframe
         title='frame-platform'
         src='https://futuraspaceserver4.link/mini_games/mountainking_game_client/index.html'
-        width='900'
+        width='960'
         height='600'
         scrolling='no'
       ></iframe>

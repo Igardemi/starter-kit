@@ -42,7 +42,7 @@ const BridgeUnity: React.FC = () => {
 
   return (
     <Box display='flex' height='100%' flexDirection='column' justifyContent='center' alignItems='center' pt={4}>
-       <IconButton  sx={{display:'absolute', top:'46px', left:'-420px', fontSize:'26px', color:'white'}}
+       <IconButton  sx={{display:'absolute', top:'56px', left:'-420px', fontSize:'26px', color:'white'}}
           aria-label="más opciones"
           aria-controls="long-menu"
           aria-haspopup="true"
@@ -84,8 +84,8 @@ const BridgeUnity: React.FC = () => {
       <iframe
         title='frame-platform'
         src='https://futuraspaceserver4.link/mini_games/bridge_game_client/index.html'
-        width='960'
-        height='640'
+        width='100%'
+        height='100%'
         scrolling='no'
       ></iframe>
     </Box>
