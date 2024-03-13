@@ -7,10 +7,6 @@ import { Router } from 'next/router'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 
-
-
-
-
 // ** Loader Import
 import NProgress from 'nprogress'
 
@@ -43,6 +39,11 @@ import Spinner from 'src/@core/components/spinner'
 // ** Contexts
 import { AuthProvider } from 'src/context/AuthContext'
 import { SettingsConsumer, SettingsProvider } from 'src/@core/context/settingsContext'
+
+// ** Store Redux
+import { Provider as ReduxProvider } from 'react-redux';
+import { store } from '../store/store';
+
 
 // ** Styled Components
 import ReactHotToast from 'src/@core/styles/libs/react-hot-toast'
@@ -119,8 +120,7 @@ const App = (props: ExtendedAppProps) => {
   const aclAbilities = Component.acl ?? defaultACLObj
 
   return (
-    
-      <CacheProvider value={emotionCache}>
+    <CacheProvider value={emotionCache}>
         <Head>
           <title>{`${themeConfig.templateName} - Material Design React Admin Template`}</title>
           <meta
@@ -131,6 +131,7 @@ const App = (props: ExtendedAppProps) => {
           <meta name='viewport' content='initial-scale=1, width=device-width' />
         </Head>
 
+        <ReduxProvider store={store}>
         <AuthProvider>
           <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
             <SettingsConsumer>
@@ -153,8 +154,8 @@ const App = (props: ExtendedAppProps) => {
             </SettingsConsumer>
           </SettingsProvider>
         </AuthProvider>
+      </ReduxProvider>
       </CacheProvider>
-   
   )
 }
 

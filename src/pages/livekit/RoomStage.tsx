@@ -13,25 +13,21 @@ import {
 } from 'livekit-client';
 
 import type { NextPage } from 'next';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 
-const PreJoinNoSSR = dynamic(
-  async () => {
-    return (await import('@livekit/components-react')).PreJoin;
-  },
-  { ssr: false },
-);
+// store
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 interface RoomStageProps {
-  token: string,
   username: string
 }
 
-const RoomStage: NextPage<RoomStageProps> = ({ token, username }) => {
+const RoomStage: NextPage<RoomStageProps> = ({ username}) => {
   const router = useRouter();
   const roomName: string = "demo";
+  const tokenLivekit = useSelector((state: RootState) => state.livekit.tokenLivekit);
 
   const [preJoinChoices, setPreJoinChoices] = React.useState<LocalUserChoices | undefined>(
     {
@@ -45,10 +41,10 @@ const RoomStage: NextPage<RoomStageProps> = ({ token, username }) => {
 
   return (
       <Box sx={{display:'flex', justifyContent:'center',mt:10}}>
-        {roomName && !Array.isArray(roomName) && preJoinChoices ? (
+        {tokenLivekit && roomName && !Array.isArray(roomName) && preJoinChoices ? (
           <ActiveRoom
             roomName={roomName}
-            token = {token}
+            token = {tokenLivekit}
             userChoices={preJoinChoices}
             onLeave={() => {
               router.push('/');
@@ -57,6 +53,7 @@ const RoomStage: NextPage<RoomStageProps> = ({ token, username }) => {
         ) : (
           <div style={{ display: 'grid', placeItems: 'center', height: '100%' }}>
             No funciona!
+            {tokenLivekit}
           </div>
         )}
       </Box>
