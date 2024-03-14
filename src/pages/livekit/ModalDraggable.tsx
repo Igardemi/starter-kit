@@ -13,30 +13,29 @@ interface ModalDraggableProps {
 const style = {
   position: 'absolute',
   left: '50%',
-  transform: 'translate(-50%, -50%)',
+  transform: 'translate(-20%, -140%)',
   width: 700,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 14,
+  boxShadow: 12,
+  borderRadius:2,
   p: 4,
 };
 
 const ModalDraggable: React.FC<ModalDraggableProps> = ({ isOpen, handleClose, title, children }) => {
   return (
-    <Draggable handle="#draggable-modal-title">
+    <Draggable handle="#draggable-modal">
     <Modal
       open={isOpen}
       onClose={handleClose}
       aria-labelledby="draggable-modal-title"
       sx={{ 
       position: 'relative',
-      display:'flex',
-      bgcolor: 'red'}}
+      display:'flex'}}
     >
-        <Box sx={style} id="draggable-modal">
-          <Typography id="draggable-modal-title" sx={{ cursor: 'move' }} variant="h6" component="h2">
+        <Box sx={{cursor: 'move', ...style}} id="draggable-modal">
+          {/* <Typography id="draggable-modal-title" variant="h6" component="h2">
             {title}
-          </Typography>
+          </Typography> */}
           {children}
         </Box>
     </Modal>

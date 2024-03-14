@@ -12,32 +12,26 @@ import {
   RoomConnectOptions
 } from 'livekit-client';
 
-import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import * as React from 'react';
 
 // store
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import { useDispatch } from 'react-redux';
+import { setTokenLivekit } from '../../store/slices/livekitSlice'; 
 
-interface RoomStageProps {
-  username: string
-}
-
-const RoomStage: NextPage<RoomStageProps> = ({ username}) => {
-  const router = useRouter();
-  const roomName: string = "demo";
+const RoomStage = () => {
+  const dispatch = useDispatch()
+  const roomName = "demo";
   const tokenLivekit = useSelector((state: RootState) => state.livekit.tokenLivekit);
 
-  const [preJoinChoices, setPreJoinChoices] = React.useState<LocalUserChoices | undefined>(
-    {
+  const preJoinChoices = {
       videoEnabled: false,
       audioEnabled: true,
       videoDeviceId: "",
       audioDeviceId: "",
-      username: username,
-  }
-  );
+      username: "",
+  };
 
   return (
       <Box sx={{display:'flex', justifyContent:'center',mt:10}}>
@@ -47,7 +41,7 @@ const RoomStage: NextPage<RoomStageProps> = ({ username}) => {
             token = {tokenLivekit}
             userChoices={preJoinChoices}
             onLeave={() => {
-              router.push('/');
+              dispatch(setTokenLivekit(null))
             }}
           ></ActiveRoom>
         ) : (
