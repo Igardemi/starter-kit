@@ -5,12 +5,17 @@ import { Box, Typography } from '@mui/material'
 import '@livekit/components-styles';
 import { useDispatch } from 'react-redux';
 import { setTokenLivekit } from '../../store/slices/livekitSlice'; 
+import ModalDraggable from './ModalDraggable';
 
 function livekitToken() {
   const [identity, setIdentity] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const room = 'demo'
   const dispatch = useDispatch();
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     const newIdentity = `user_${Math.floor(Math.random() * 10000)}`
@@ -24,6 +29,7 @@ function livekitToken() {
         .then(response => response.json())
         .then(data => {
           saveToken(data.dataToken) //almacenamos en el store de redux el token
+          setOpen(true)
           setIsLoading(false)
         })
         .catch(error => {
@@ -46,9 +52,12 @@ function livekitToken() {
   }
 
   return (
-    <Box sx={{display:'flex', alignContent:'center', justifyContent:'center', mt:20}}>
+    <Box>
+       {/* <Typography >Loaded</Typography> */}
+    <ModalDraggable isOpen={open} handleClose={handleClose} title="Videocall">
       <RoomStage username={identity} />
-      </Box>
+    </ModalDraggable>    
+    </Box>
 );
 }
 
